@@ -9,10 +9,11 @@ from loguru import logger
 from agents.react_master_agent import ReActMasterAgent
 from config.settings import Settings
 from llms import LLMFactory
-from prompts import FILE_RELATED_SYSTEM_PROMPT
+from prompts import FILE_RELATED_SYSTEM_PROMPT, MEXICAN_OIL_FORECASTING_PROMPT
 from utils.agents import get_agents
 from utils.chat_history import get_chat_history
 from utils.common import attach_files_to_message
+import re
 
 app_settings = Settings()
 
@@ -37,7 +38,14 @@ async def receive_message(
         base_system_prompt = configs.get("system_prompt")
         user_system_prompt = configs.get("user_prompt")
 
-        system_prompt = user_system_prompt or base_system_prompt
+        # Check if this is a Mexican oil forecasting query
+        is_oil_forecasting_query = await _is_oil_forecasting_query(chat_history)
+        
+        if is_oil_forecasting_query:
+            system_prompt = MEXICAN_OIL_FORECASTING_PROMPT
+        else:
+            system_prompt = user_system_prompt or base_system_prompt
+            
         system_prompt = f"{system_prompt}\n\n{FILE_RELATED_SYSTEM_PROMPT}"
 
         chat_history = await get_chat_history(
@@ -87,6 +95,43 @@ async def receive_message(
             "is_success": False
         }
         return {"agents_trace": [trace], "response": error_message, "is_success": False}
+
+
+async def _is_oil_forecasting_query(chat_history: list) -> bool:
+    """
+    Detect if the user query is related to Mexican oil production forecasting.
+    """
+    if not chat_history:
+        return False
+    
+    # Get the latest user message
+    latest_message = chat_history[-1].content if hasattr(chat_history[-1], 'content') else str(chat_history[-1])
+    
+    # Keywords that indicate oil forecasting queries
+    oil_keywords = [
+        'oil', 'petroleum', 'crude', 'barrel', 'production', 'forecast', 'predict',
+        'mexican', 'mexico', 'ku-maloob-zaap', 'cantarell', 'field', 'reservoir',
+        'federal tax', 'revenue', 'economic impact', 'trade balance', 'credit rating'
+    ]
+    
+    # Check if any oil-related keywords are present
+    message_lower = latest_message.lower()
+    has_oil_keywords = any(keyword in message_lower for keyword in oil_keywords)
+    
+    # Check for specific patterns
+    oil_patterns = [
+        r'forecast.*oil.*production',
+        r'oil.*production.*forecast',
+        r'mexican.*oil',
+        r'economic.*impact.*oil',
+        r'federal.*tax.*revenue',
+        r'ku-maloob-zaap',
+        r'cantarell'
+    ]
+    
+    has_oil_patterns = any(re.search(pattern, message_lower) for pattern in oil_patterns)
+    
+    return has_oil_keywords or has_oil_patterns
 
 
 async def main():
