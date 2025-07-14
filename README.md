@@ -2,7 +2,7 @@
 
 <!-- Add your project logo here -->
 <p align="center">
-  <img src="PetrolgenAiLogo2.png" width="300" alt="PetrolGenAI Logo">
+  <img src="PetrolGenAiLogo2.png" width="300" alt="PetrolGenAI Logo">
 </p>
 
 ## 🎯 **Project Purpose**
