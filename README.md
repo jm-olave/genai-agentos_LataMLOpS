@@ -1,8 +1,13 @@
 # 🛢️ Mexican Oil Production Forecasting - Multi-Agent AI System
 
+<!-- Add your project logo here -->
+<p align="center">
+  <img src="images/petrolgenai-logo.png" width="300" alt="PetrolGenAI Logo">
+</p>
+
 ## 🎯 **Project Purpose**
 
-This project demonstrates a cutting-edge **Multi-Agent AI System** for predictive modeling of Mexican oil production with comprehensive economic impact analysis. The system leverages advanced AI agents, MCP (Model Context Protocol) integration, and real-time data processing to provide accurate forecasts and economic insights for the Mexican oil industry.
+This project demonstrates a cutting-edge **Multi-Agent AI System** for predictive modeling of Mexican oil production Call PetrolGenAi (Please refer to the notion Pitch deck for startup proposal) with comprehensive economic impact analysis. The system leverages advanced AI agents, MCP (Model Context Protocol) integration, and real-time data processing to provide accurate forecasts and economic insights for the Mexican oil industry.
 
 ### **Key Objectives:**
 - **Predictive Modeling**: Forecast oil production for major Mexican oil fields
@@ -18,8 +23,14 @@ This project demonstrates a cutting-edge **Multi-Agent AI System** for predictiv
 ### **System Architecture Overview**
 
 ```
-User Query → Master Agent → MCP Data Collection → AI Modeling → Economic Analysis → Comprehensive Report
+User Query → Master Agent →  Economic Analysis  → AI Modeling → MCP Data Collection →  AI Modeling → Comprehensive Report
 ```
+
+<!-- Add your architecture diagram here -->
+<p align="center">
+  <img src="agenflow.webp" width="700" alt="PetrolGenAI AgentFlow Using AgentOS">
+  <br><em>AgentFlow</em>
+</p>
 
 ### **Multi-Agent Workflow**
 
@@ -74,6 +85,8 @@ User Query → Master Agent → MCP Data Collection → AI Modeling → Economic
 └─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
+
+
 ---
 
 ## 🚀 **Implementation & Setup Guide**
@@ -89,8 +102,8 @@ User Query → Master Agent → MCP Data Collection → AI Modeling → Economic
 
 ```bash
 # Clone the repository
-git clone https://github.com/genai-works-org/genai-agentos.git
-cd genai-agentos/
+git clone https://github.com/genai-works-org/genai-agentos_LataMLOpS.git
+cd genai-agentos_LataMLOpS/
 
 # Create environment file
 cp .env-example .env
@@ -223,7 +236,6 @@ This project leverages cutting-edge technologies and tools that demonstrate adva
 #### **📋 Notion Integration**
 - **Pitch Deck**: Complete project documentation and presentation built in Notion
 - **Real-time Collaboration**: Team coordination and project management
-- **Dynamic Content**: Interactive project showcase with embedded demos
 - **Professional Presentation**: Structured documentation for judges and stakeholders
 
 #### **☁️ Cloudera MCP (Model Context Protocol)**
@@ -251,74 +263,30 @@ This project leverages cutting-edge technologies and tools that demonstrate adva
 ## 🎥 **Demo & Documentation**
 
 ### **📋 Pitch Deck**
-[Notion Pitch Deck](https://www.notion.so/mexican-oil-forecasting-pitch) - Comprehensive project overview, technical architecture, and business impact
+[Notion Pitch Deck](https://www.notion.so/PetrolGenAI-230e32279bb880ada321fdb4c1bb150b?source=copy_link) - Comprehensive project overview, technical architecture, and business impact
 
 ### **🎬 Video Demonstration**
 [Video Demo](https://youtu.be/mexican-oil-forecasting-demo) - Live demonstration of the multi-agent system in action
 
-### **👥 Team Profiles**
+
+
+### **👥 Team Profiles LinkedIn**
+
 
 #### **Team Member 1**
-- **Name**: [Your Name]
-- **Role**: Lead AI Engineer & System Architect
-- **LinkedIn**: [LinkedIn Profile](https://linkedin.com/in/your-profile)
+- **Name**: Joshua Olave
+- **Role**: AI/ML Engineer & System Architect
+- **LinkedIn**: [LinkedIn Profile](https://www.linkedin.com/in/joshuaolave/)
 - **Expertise**: Multi-Agent Systems, MCP Protocol, AI Orchestration
 
 #### **Team Member 2**
-- **Name**: [Your Name]
-- **Role**: Data Scientist & ML Engineer
-- **LinkedIn**: [LinkedIn Profile](https://linkedin.com/in/your-profile)
+- **Name**: Diego Casasbuenas
+- **Role**: AI/ML Engineer & Data Scientist 
+- **LinkedIn**: [LinkedIn Profile](https://www.linkedin.com/in/diegocasasbuenasai/)
 - **Expertise**: Time Series Forecasting, Economic Modeling, Data Engineering
 
 ---
 
-## 🔧 **Technical Stack**
-
-### **Backend Infrastructure**
-- **FastAPI**: High-performance web framework
-- **PostgreSQL**: Primary database
-- **Redis**: Caching and session management
-- **Celery**: Asynchronous task processing
-
-### **AI & ML Technologies**
-- **OpenAI GPT-4**: Advanced language models
-- **ReAct Framework**: Reasoning and action framework
-- **LangGraph**: Workflow orchestration
-- **MCP Protocol**: Model Context Protocol for data access
-
-### **Frontend & UI**
-- **React/TypeScript**: Modern web interface
-- **WebSocket**: Real-time communication
-- **Tailwind CSS**: Responsive design
-- **Chart.js**: Data visualization
-
-### **DevOps & Deployment**
-- **Docker**: Containerization
-- **Docker Compose**: Multi-service orchestration
-- **UV**: Fast Python package management
-- **Git**: Version control
-
----
-
-## 🎯 **Business Impact**
-
-### **For Oil Industry Stakeholders**
-- **Accurate Forecasting**: Data-driven production predictions
-- **Economic Insights**: Comprehensive fiscal impact analysis
-- **Risk Assessment**: Scenario-based risk evaluation
-- **Decision Support**: Actionable recommendations
-
-### **For Government & Regulators**
-- **Revenue Projections**: Tax and royalty forecasting
-- **Economic Planning**: GDP and employment impact analysis
-- **Policy Development**: Data-driven policy recommendations
-
-### **For Investors & Analysts**
-- **Market Intelligence**: Production trend analysis
-- **Investment Decisions**: Risk-adjusted return projections
-- **Portfolio Management**: Diversification insights
-
----
 
 ## 🚀 **Future Enhancements**
 
@@ -336,26 +304,13 @@ This project leverages cutting-edge technologies and tools that demonstrate adva
 
 ---
 
-## 📄 **License**
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🤝 **Contributing**
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
----
-
 ## 📞 **Contact**
 
 For questions, support, or collaboration opportunities:
 
-- **Email**: [your-email@domain.com]
+- **Email**: [joshuamht@outlook.com]
 - **GitHub Issues**: [Project Issues](https://github.com/genai-works-org/genai-agentos/issues)
-- **LinkedIn**: [Team Profiles](#team-profiles)
 
 ---
 
-**Built with ❤️ for the Mexican Oil Industry**
+**Built with ❤️ for the Energy Oil Industry**
