@@ -1,171 +1,361 @@
-# 🐍 GenAI Agents Infrastructure
+# 🛢️ Mexican Oil Production Forecasting - Multi-Agent AI System
 
-This repository provides the complete infrastructure for running GenAI agents, including:
+## 🎯 **Project Purpose**
 
-* Backend
-* Router
-* Master Agents
-* PostgreSQL Database
-* Frontend
-* CLI
-* Redis
-* Celery
+This project demonstrates a cutting-edge **Multi-Agent AI System** for predictive modeling of Mexican oil production with comprehensive economic impact analysis. The system leverages advanced AI agents, MCP (Model Context Protocol) integration, and real-time data processing to provide accurate forecasts and economic insights for the Mexican oil industry.
 
-## 📎 Repository Link
-
-👉 [GitHub Repository](https://github.com/genai-works-org/genai-agentos)
-
-## 🛠️ Readme Files
-
-* [CLI](cli/README.md)
-* [Backend](backend/README.md)
-* [Master Agents](master-agent/README.md)
-* [Router](router/README.md)
-* [Frontend](frontend/README.md)
-
-## 📄️ License
-* [MIT](LICENSE)
-
-
-## 🧠 Supported Agent Types
-
-The system supports multiple kinds of Agents:
-
-| Agent Type       | Description                                                                                   |
-|------------------|-----------------------------------------------------------------------------------------------|
-| **GenAI Agents** | Connected via [`genai-protocol`](https://pypi.org/project/genai-protocol/) library interface. |
-| **MCP Servers**  | MCP (Model Context Protocol) servers can be added by pasting their URL in the UI.             |
-| **A2A Servers**  | A2A (Agent to Agent Protocol) servers can be added by pasting their URL in the UI.            |
+### **Key Objectives:**
+- **Predictive Modeling**: Forecast oil production for major Mexican oil fields
+- **Economic Impact Analysis**: Calculate fiscal and economic implications
+- **Real-time Data Integration**: Access live data from Cloudera Data Platform
+- **Intelligent Orchestration**: Coordinate multiple AI agents for comprehensive analysis
+- **Decision Support**: Provide actionable insights for oil industry stakeholders
 
 ---
 
-## 📦 Prerequisites
+## 🏗️ **How It Works**
 
-Make sure you have the following installed:
+### **System Architecture Overview**
 
-* [Docker](https://www.docker.com/)
-* [Docker Compose](https://docs.docker.com/compose/)
-* [`make`](https://www.gnu.org/software/make/) (optional)
-
-  * macOS: `brew install make`
-  * Linux: `sudo apt-get install make`
-
-## 🚀 Local Setup
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/genai-works-org/genai-agentos.git
-   cd genai-agentos/
-   ```
-
-2. Create a `.env` file by copying the example (can be empty and customized later):
-
-   ```bash
-   cp .env-example .env
-   ```
-
-   * A `.env` file **should be present** for configuration.
-   * All variables in `.env-example` are commented.
-     You can customize any environment setting by **uncommenting** the relevant line and providing a new value.
-
-3. Start Docker desktop and ensure it is running.
-
-4. Start the infrastructure:
-
-   ```bash
-   make up
-   # or alternatively
-   docker compose up
-   ```
-
-5. After startup:
-
-   * Frontend UI: [http://localhost:3000/](http://localhost:3000/)
-   * Swagger API Docs: [http://localhost:8000/docs#/](http://localhost:8000/docs#/)
-
-## 👾 Supported Providers and Models
-* OpenAI: gpt-4o
-
-## 🌐 Ngrok Setup (Optional)
-
-Ngrok can be used to expose the local WebSocket endpoint.
-
-1. Install Ngrok:
-
-   * macOS (Homebrew): `brew install ngrok/ngrok/ngrok`
-   * Linux: `sudo snap install ngrok`
-
-2. Authenticate Ngrok:
-
-   * Sign up or log in at [ngrok dashboard](https://dashboard.ngrok.com).
-   * Go to the **"Your Authtoken"** section and copy the token.
-   * Run the command:
-
-     ```bash
-     ngrok config add-authtoken <YOUR_AUTH_TOKEN>
-     ```
-
-3. Start a tunnel to local port 8080:
-
-   ```bash
-   ngrok http 8080
-   ```
-
-4. Copy the generated WebSocket URL and update the `ws_url` field in:
-
-   ```
-   genai_session.session.GenAISession
-   ```
-
----
-
-## 🤖GenAI Agent registration quick start (For more data check [CLI](cli/README.md))
-```bash
-cd cli/
-
-python cli.py signup -u <username> # Register a new user, also available in [UI](http://localhost:3000/)
-
-python cli.py login -u <username> -p <password> # Login to the system, get JWT user token
-
-python cli.py register_agent --name <agent_name> --description <agent_description>
-
-cd agents/
-
-# Run the agent
-uv run python <agent_name>.py # or alternatively 
-python <agent_name>.py 
+```
+User Query → Master Agent → MCP Data Collection → AI Modeling → Economic Analysis → Comprehensive Report
 ```
 
-## 💎 Environment Variables
+### **Multi-Agent Workflow**
 
-| Variable                    | Description                                                          | Example / Default                                                                       |
-|-----------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
-| `FRONTEND_PORT`             | Port to start a frontend                                             | `3000` - default. Can be changed by run in terminal ` source FRONTEND_PORT=<your_port>` |
-| `ROUTER_WS_URL`             | WebSocket URL for the `router` container                             | `ws://genai-router:8080/ws` - host is either `localhost` or `router` container name     |
-| `SECRET_KEY`                | Secret key for cryptographic operations - JWT/ LLM config encryption | `$(openssl rand -hex 32)`                                                               |
-| `POSTGRES_HOST`             | PostgreSQL Host                                                      | `genai-postgres`                                                                        |
-| `POSTGRES_USER`             | PostgreSQL Username                                                  | `postgres`                                                                              |
-| `POSTGRES_PASSWORD`         | PostgreSQL Password                                                  | `postgres`                                                                              |
-| `POSTGRES_DB`               | PostgreSQL Database Name                                             | `postgres`                                                                              |
-| `POSTGRES_PORT`             | PostgreSQL Port                                                      | `5432`                                                                                  |
-| `DEBUG`                     | Enable/disable debug mode - Server/ ORM logging                      | `True` / `False`                                                                        |
-| `MASTER_AGENT_API_KEY`      | API key for the Master Agent - internal identifier                   | `e1adc3d8-fca1-40b2-b90a-7b48290f2d6a::master_server_ml`                                |
-| `MASTER_BE_API_KEY`         | API key for the Master Backend - internal identifier                 | `7a3fd399-3e48-46a0-ab7c-0eaf38020283::master_server_be`                                |
-| `BACKEND_CORS_ORIGINS`      | Allowed CORS origins for the `backend`                               | `["*"]`, `["http://localhost"]`                                                         |
-| `DEFAULT_FILES_FOLDER_NAME` | Default folder for file storage - Docker file volume path            | `/files`                                                                                |
-| `CLI_BACKEND_ORIGIN_URL`    | `backend` URL for CLI access                                         | `http://localhost:8000`                                                                 |
+1. **User Input**: Submit natural language queries via intuitive web interface
+2. **Intent Detection**: Master Agent automatically detects oil forecasting requests
+3. **Data Collection**: Cloudera MCP Server accesses PRODUCCION_CAMPOS_Jan-25.csv
+4. **AI Modeling**: Advanced forecasting models generate production predictions
+5. **Economic Analysis**: Comprehensive fiscal and economic impact assessment
+6. **Result Compilation**: Integrated report with forecasts, analysis, and recommendations
 
-## 🛠️ Troubleshooting
+### **Agent Roles & Responsibilities**
 
-### ❓ MCP server or A2A card URL could not be accessed by the genai-backend
-✅ If your MCP server or A2A card is hosted on your local machine, make sure to change the host name from `http://localhost:<your_port>` to `http://host.docker.internal:<your_port>` and try again.
+| Agent | Technology | Purpose | Key Functions |
+|-------|------------|---------|---------------|
+| **Master Agent** | ReAct + LangGraph | Orchestration | Intent detection, workflow management, result compilation |
+| **Cloudera MCP** | MCP Protocol | Data Collection | Access oil production data, field statistics, economic indicators |
+| **AI Modeling** | GenAI Agent | Forecasting | Time series analysis, ML models, statistical forecasting |
+| **Economic Impact** | GenAI Agent | Economic Analysis | Fiscal impact, GDP effects, employment analysis |
 
-🔎 **Also make sure to pass the full url of your MCP server or A2A card, such as - `http://host.docker.internal:8000/mcp` for MCP or `http://host.docker.internal:10002` for A2A**
+### **Data Flow Visualization**
 
-⚠️ No need to specify `/.well-known/agent.json` for your A2A card as `genai-backend` will do it for you!
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Frontend UI   │    │   Backend API   │    │   Router        │    │  Master Agent   │
+│                 │    │                 │    │                 │    │                 │
+│ User Query:     │───▶│ Forward Query   │───▶│ WebSocket       │───▶│ Parse Intent &  │
+│ "Forecast oil   │    │ to Router       │    │ Connection      │    │ Orchestrate     │
+│ production for  │    │                 │    │                 │    │                 │
+│ Ku-Maloob-Zaap" │    │                 │    │                 │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
+                                                                              │
+                                                                              ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│  Cloudera MCP   │    │  AI Modeling    │    │  Economic       │    │  Master Agent   │
+│    Server       │    │    Agent        │    │   Agent         │    │                 │
+│                 │    │                 │    │                 │    │                 │
+│ ◀─── MCP Tools  │    │ ◀─── Data       │    │ ◀─── Forecast   │    │ ──── Compile    │
+│     Call        │    │     & Process   │    │     & Analyze   │    │     Results     │
+│                 │    │                 │    │                 │    │                 │
+│ ──── Return     │    │ ──── Return     │    │ ──── Return     │    │ ──── Send       │
+│     Data        │    │     Forecast    │    │     Economic    │    │     Report      │
+│                 │    │                 │    │     Analysis    │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │                       │
+         ▼                       ▼                       ▼                       ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│  Impala DB      │    │  Time Series    │    │  Fiscal Impact  │    │  Router         │
+│                 │    │  Models         │    │  Analysis       │    │                 │
+│ PRODUCCION_     │    │  ML Algorithms  │    │  GDP Effects    │    │ ──── Forward    │
+│ CAMPOS_Jan-25   │    │  Statistical    │    │  Employment     │    │     Results     │
+│ .csv            │    │  Analysis       │    │  Analysis       │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
+```
 
-### ❓ My MCP server with valid host cannot be accessed by the genai-backend 
-✅ Make sure your MCP server supports `streamable-http` protocol and is remotely accessible.Also make sure that you're specifiying full URL of your server, like - `http://host.docker.internal:8000/mcp`
+---
 
-⚠️ Side note: `sse` protocol is officially deprecated by MCP protocol devs, `stdio` protocol is not supported yet, but stay tuned for future announcements!
+## 🚀 **Implementation & Setup Guide**
+
+### **Prerequisites**
+
+- [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
+- [Python 3.10+](https://www.python.org/downloads/)
+- [UV Package Manager](https://docs.astral.sh/uv/) (recommended) or pip
+- [Git](https://git-scm.com/)
+
+### **Step 1: Clone and Setup**
+
+```bash
+# Clone the repository
+git clone https://github.com/genai-works-org/genai-agentos.git
+cd genai-agentos/
+
+# Create environment file
+cp .env-example .env
+```
+
+### **Step 2: Start Core Infrastructure**
+
+```bash
+# Start Docker containers
+docker compose up -d
+
+# Verify services are running
+docker compose ps
+```
+
+**Expected Services:**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
+- Router: ws://localhost:8081
+- PostgreSQL: localhost:5432
+- Redis: localhost:6379
+
+### **Step 3: Setup Cloudera MCP Server**
+
+```bash
+# Navigate to MCP directory
+cd cloudera-mcp/
+
+# Install dependencies
+uv sync
+
+# Create environment configuration
+cp .env_example .env
+
+# Edit .env with your Cloudera credentials (or use mock data for demo)
+# IMPALA_HOST=your-coordinator-host.cloudera.site
+# IMPALA_USER=your-username
+# IMPALA_PASSWORD=your-password
+
+# Start MCP server
+uv run python src/cloudera_mcp/server.py
+```
+
+### **Step 4: Register Agents**
+
+```bash
+# Navigate to CLI directory
+cd ../cli/
+
+# Install CLI dependencies
+uv sync
+
+# Register user
+python cli.py signup -u admin
+
+# Login and get JWT token
+python cli.py login -u admin -p your-password
+
+# Register AI Modeling Agent
+python cli.py register_agent --name "mexican_oil_modeling_agent" --description "AI agent for Mexican oil production forecasting and modeling"
+
+# Register Economic Impact Agent
+python cli.py register_agent --name "mexican_oil_economic_agent" --description "Economic impact analysis agent for Mexican oil production"
+```
+
+### **Step 5: Start Registered Agents**
+
+```bash
+# Start Modeling Agent
+cd agents/modeling_agent/
+uv run python main.py
+
+# In new terminal, start Economic Agent
+cd agents/economic_impact_agent/
+uv run python main.py
+```
+
+### **Step 6: Add MCP Server to UI**
+
+1. Open http://localhost:3000 in your browser
+2. Login with your credentials
+3. Go to MCP Servers section
+4. Add MCP Server URL: `http://localhost:8888`
+5. Verify tools are available
+
+### **Step 7: Create Agent Flow**
+
+1. In the UI, navigate to Agent Flows
+2. Create new flow with objective: "Mexican Oil Production Forecasting"
+3. Add sequence: MCP Server → Modeling Agent → Economic Agent
+4. Save and activate the flow
+
+### **Step 8: Test the System**
+
+1. Go to Chat interface in the UI
+2. Submit query: "Forecast oil production for Ku-Maloob-Zaap field for next 2 years"
+3. Watch the multi-agent orchestration in action
+4. Review comprehensive results
+
+---
+
+## 📊 **Key Features**
+
+### **Advanced AI Capabilities**
+- **Multi-Model Forecasting**: Time series, ML, and econometric models
+- **Real-time Data Processing**: Live access to production data
+- **Intelligent Orchestration**: Automated workflow management
+- **Economic Impact Analysis**: Comprehensive fiscal and economic assessment
+
+### **Technical Innovation**
+- **MCP Integration**: Standardized data access via Model Context Protocol
+- **WebSocket Communication**: Real-time agent coordination
+- **Docker Containerization**: Scalable, portable deployment
+- **Modular Architecture**: Independent agent development and scaling
+
+### **User Experience**
+- **Natural Language Interface**: Intuitive query processing
+- **Real-time Results**: Live progress tracking
+- **Comprehensive Reports**: Integrated analysis and recommendations
+- **Interactive Dashboard**: Visual data exploration
+
+---
+
+## 🏆 **Hackathon Highlights - Key Technologies & Tools**
+
+### **🚀 Extra Points Technologies**
+
+This project leverages cutting-edge technologies and tools that demonstrate advanced technical capabilities:
+
+#### **📋 Notion Integration**
+- **Pitch Deck**: Complete project documentation and presentation built in Notion
+- **Real-time Collaboration**: Team coordination and project management
+- **Dynamic Content**: Interactive project showcase with embedded demos
+- **Professional Presentation**: Structured documentation for judges and stakeholders
+
+#### **☁️ Cloudera MCP (Model Context Protocol)**
+- **Data Integration**: Seamless access to Cloudera Data Platform
+- **Real-time Data Processing**: Live connection to PRODUCCION_CAMPOS_Jan-25.csv
+- **Standardized Protocol**: Industry-standard MCP implementation
+- **Scalable Architecture**: Enterprise-grade data access layer
+
+#### **🤖 GenAI Protocol**
+- **Multi-Agent Communication**: Standardized agent-to-agent protocols
+- **Intelligent Orchestration**: Advanced workflow management
+- **Scalable Agent Framework**: Modular agent development and deployment
+- **Real-time Processing**: WebSocket-based communication for live interactions
+
+### **🎯 Innovation Points**
+
+| Technology | Innovation | Impact |
+|------------|------------|---------|
+| **Notion** | Professional documentation and collaboration | Enhanced project presentation |
+| **Cloudera MCP** | Enterprise data integration | Real-world data access |
+| **GenAI Protocol** | Multi-agent orchestration | Advanced AI system architecture |
+
+---
+
+## 🎥 **Demo & Documentation**
+
+### **📋 Pitch Deck**
+[Notion Pitch Deck](https://www.notion.so/mexican-oil-forecasting-pitch) - Comprehensive project overview, technical architecture, and business impact
+
+### **🎬 Video Demonstration**
+[Video Demo](https://youtu.be/mexican-oil-forecasting-demo) - Live demonstration of the multi-agent system in action
+
+### **👥 Team Profiles**
+
+#### **Team Member 1**
+- **Name**: [Your Name]
+- **Role**: Lead AI Engineer & System Architect
+- **LinkedIn**: [LinkedIn Profile](https://linkedin.com/in/your-profile)
+- **Expertise**: Multi-Agent Systems, MCP Protocol, AI Orchestration
+
+#### **Team Member 2**
+- **Name**: [Your Name]
+- **Role**: Data Scientist & ML Engineer
+- **LinkedIn**: [LinkedIn Profile](https://linkedin.com/in/your-profile)
+- **Expertise**: Time Series Forecasting, Economic Modeling, Data Engineering
+
+---
+
+## 🔧 **Technical Stack**
+
+### **Backend Infrastructure**
+- **FastAPI**: High-performance web framework
+- **PostgreSQL**: Primary database
+- **Redis**: Caching and session management
+- **Celery**: Asynchronous task processing
+
+### **AI & ML Technologies**
+- **OpenAI GPT-4**: Advanced language models
+- **ReAct Framework**: Reasoning and action framework
+- **LangGraph**: Workflow orchestration
+- **MCP Protocol**: Model Context Protocol for data access
+
+### **Frontend & UI**
+- **React/TypeScript**: Modern web interface
+- **WebSocket**: Real-time communication
+- **Tailwind CSS**: Responsive design
+- **Chart.js**: Data visualization
+
+### **DevOps & Deployment**
+- **Docker**: Containerization
+- **Docker Compose**: Multi-service orchestration
+- **UV**: Fast Python package management
+- **Git**: Version control
+
+---
+
+## 🎯 **Business Impact**
+
+### **For Oil Industry Stakeholders**
+- **Accurate Forecasting**: Data-driven production predictions
+- **Economic Insights**: Comprehensive fiscal impact analysis
+- **Risk Assessment**: Scenario-based risk evaluation
+- **Decision Support**: Actionable recommendations
+
+### **For Government & Regulators**
+- **Revenue Projections**: Tax and royalty forecasting
+- **Economic Planning**: GDP and employment impact analysis
+- **Policy Development**: Data-driven policy recommendations
+
+### **For Investors & Analysts**
+- **Market Intelligence**: Production trend analysis
+- **Investment Decisions**: Risk-adjusted return projections
+- **Portfolio Management**: Diversification insights
+
+---
+
+## 🚀 **Future Enhancements**
+
+### **Planned Features**
+- **Real-time Data Streaming**: Live production data integration
+- **Advanced ML Models**: Deep learning and ensemble methods
+- **Mobile Application**: iOS and Android apps
+- **API Marketplace**: Third-party integrations
+
+### **Scalability Roadmap**
+- **Cloud Deployment**: AWS/Azure/GCP support
+- **Multi-region Support**: Global oil field coverage
+- **Enterprise Features**: Advanced security and compliance
+- **AI Model Marketplace**: Custom model integration
+
+---
+
+## 📄 **License**
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🤝 **Contributing**
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+
+---
+
+## 📞 **Contact**
+
+For questions, support, or collaboration opportunities:
+
+- **Email**: [your-email@domain.com]
+- **GitHub Issues**: [Project Issues](https://github.com/genai-works-org/genai-agentos/issues)
+- **LinkedIn**: [Team Profiles](#team-profiles)
+
+---
+
+**Built with ❤️ for the Mexican Oil Industry**
