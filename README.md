@@ -266,7 +266,7 @@ This project leverages cutting-edge technologies and tools that demonstrate adva
 [Notion Pitch Deck](https://www.notion.so/PetrolGenAI-230e32279bb880ada321fdb4c1bb150b?source=copy_link) - Comprehensive project overview, technical architecture, and business impact
 
 ### **🎬 Video Demonstration**
-[Video Demo](https://youtu.be/mexican-oil-forecasting-demo) - Live demonstration of the multi-agent system in action
+[Video Demo/Presentation](https://youtu.be/hLHLapPhfrQ) - Live demonstration of the multi-agent system in action and Idea Presentation.
 
 
 
